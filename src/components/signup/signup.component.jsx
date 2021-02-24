@@ -4,8 +4,7 @@ import React from "react";
 import "./signup.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-buttom.component";
-import {auth} from '../../firebase/firebase.utils';
-
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
 class SignUp extends React.Component {
   constructor() {
@@ -29,7 +28,6 @@ class SignUp extends React.Component {
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
-
       createUserProfileDocument(user, { displayName });
 
       this.setState({
@@ -56,7 +54,7 @@ class SignUp extends React.Component {
         <h2 className="title">I don't have an account</h2>
         <span>Sign up With your email and Password</span>
 
-        <form onClick={this.handleSubmit} className="sign-up-form">
+        <form onSubmit={this.handleSubmit} className="sign-up-form">
           <FormInput
             type="text"
             name="displayName"
