@@ -1,6 +1,5 @@
 import React from "react";
 import { auth } from "../../firebase/firebase.utils";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -10,42 +9,35 @@ import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropDown from "../cart-dropdown/cart-dropdown.component";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionLinkContainer } from "./header.styles";
 
 function Header({ currentUser, hidden }) {
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo" />
-      </Link>
+      </LogoContainer>
 
-      <div className="options">
-        <Link className="option" to="/">
-          HOME
-        </Link>
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
-        <Link className="option" to="/contact">
-          CONTACT
-        </Link>
+      <OptionsContainer>
+        <OptionLinkContainer to="/">HOME</OptionLinkContainer>
+        <OptionLinkContainer to="/shop">SHOP</OptionLinkContainer>
+        <OptionLinkContainer to="/contact">CONTACT</OptionLinkContainer>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <OptionLinkContainer as="div" onClick={() => auth.signOut()}>
             SIGN OUT
-          </div>
+          </OptionLinkContainer>
         ) : (
-          <Link className="option" to="/signin">
-            SIGN IN
-          </Link>
+          <OptionLinkContainer to="/signin">SIGN IN</OptionLinkContainer>
         )}
 
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {hidden ? null : <CartDropDown />}
-    </div>
+    </HeaderContainer>
   );
 }
 
-const mapStateToProps = createStructuredSelector ({
+const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden,
 });
