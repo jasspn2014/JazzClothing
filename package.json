@@ -1,6 +1,10 @@
 {
-    "name": "Jazz Clothing",
+    "name": "jazz-clothing",
     "version": "1.0.0",
+    "engines": {
+        "node": "14.15.4",
+        "npm": "7.5.4"
+    },
     "scripts": {
         "client": "cd client && npm start",
         "server": "nodemon server.js",
